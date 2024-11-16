@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitcoin Price Comparison</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e2f;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 80%;
+        }
+        th, td {
+            border: 1px solid #444;
+            padding: 10px 15px;
+            text-align: center;
+        }
+        th {
+            background-color: #333;
+        }
+        td {
+            background-color: #2a2a3c;
+        }
+        canvas {
+            max-width: 90%;
+            margin: 30px auto;
+            background-color: #2a2a3c;
+            border: 1px solid #444;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bitcoin Price Comparison</h1>
+
+    <!-- Table to Display Prices -->
+    <table>
+        <thead>
+            <tr>
+                <th>Website</th>
+                <th>Price (USD)</th>
+            </tr>
+        </thead>
+        <tbody id="crypto-prices"></tbody>
+    </table>
+
+    <!-- Chart Container -->
+    <h2>Comparison Chart</h2>
+    <canvas id="comparisonChart"></canvas>
+
+    <script>
+        const tableBody = document.getElementById("crypto-prices");
+        const comparisonCtx = document.getElementById("comparisonChart").getContext("2d");
+
+        let comparisonChart;
+
+        async function fetchPrices() {
+            try {
+                const response = await fetch('http://localhost:5000/prices'); // Replace with your API endpoint
+                const data = await response.json();
+
+                if (!data.length) throw new Error("No data received");
+
+                // Update Table
+                tableBody.innerHTML = '';
+                const labels = [];
+                const prices = [];
+                data.forEach(([name, price]) => {
+                    labels.push(name);
+                    prices.push(price);
+
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${name}</td>
+                        <td>$${price.toFixed(2)}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+
+                // Update Chart
+                updateComparisonChart(labels, prices);
+            } catch (error) {
+                console.error("Error fetching prices:", error);
+            }
+        }
+
+        function updateComparisonChart(labels, prices) {
+            if (comparisonChart) {
+                comparisonChart.destroy(); // Destroy the old chart before creating a new one
+            }
+
+            comparisonChart = new Chart(comparisonCtx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Bitcoin Price (USD)',
+                        data: prices,
+                        backgroundColor: [
+                            '#4CAF50', '#FF5722', '#03A9F4', '#FFC107', '#673AB7',
+                            '#E91E63', '#8BC34A', '#FF9800', '#607D8B', '#9C27B0',
+                            '#2196F3', '#00BCD4', '#CDDC39', '#795548', '#F44336'
+                        ],
+                        borderColor: '#fff',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false,
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    return `$${context.raw.toFixed(2)}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Price (USD)',
+                                color: '#fff'
+                            },
+                            ticks: {
+                                color: '#fff'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Exchanges',
+                                color: '#fff'
+                            },
+                            ticks: {
+                                color: '#fff'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Fetch prices every 3 seconds
+        setInterval(fetchPrices, 3000);
+        fetchPrices();
+    </script>
+</body>
+</html>

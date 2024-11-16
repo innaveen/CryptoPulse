@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bitcoin (BTC)</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 80%;
+        }
+        th, td {
+            border: 1px solid #444;
+            padding: 10px 15px;
+            text-align: center;
+        }
+        th {
+            background-color: #333;
+        }
+        td {
+            background-color: #2a2a3c;
+        }
+    </style>
+</head>
+<body class="dark-mode">
+    <header>
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="pricecomparison.html">Price Comparison</a></li>
+                <li><a href="marketcap.html">Market Cap</a></li>
+                <li><a href="register.html">Register</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="community.html">Community</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Bitcoin (BTC)</h1>
+        <div class="compare-controls">
+            <button onclick="showLowestPrices()">Buy</button>
+            <button onclick="showHighestPrices()">Sell</button>
+            <button onclick="predictPrice()">Price Prediction</button>
+        </div>
+    </main>
+    <h1>Real-Time Bitcoin Price Comparison</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Website</th>
+                <th>Price (USD)</th>
+            </tr>
+        </thead>
+        <tbody id="crypto-prices"></tbody>
+    </table>
+    <script>
+        async function fetchPrices() {
+            try {
+                const response = await fetch('http://localhost:5000/prices');
+                const data = await response.json();
+
+                const tableBody = document.getElementById("crypto-prices");
+                tableBody.innerHTML = ''; // Clear table before repopulating
+
+                data.forEach(([name, price]) => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${name}</td>
+                        <td>$${price.toFixed(2)}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error("Error fetching prices:", error);
+            }
+        }
+
+        // Fetch prices every 3 seconds
+        setInterval(fetchPrices, 3000);
+        fetchPrices();
+    </script>
+     <footer>
+        <p>&copy; 2024 CryptoPulse. All rights reserved.</p>
+        <p>Follow us: <a href="#">Twitter</a> | <a href="#">LinkedIn</a> | <a href="#">Facebook</a></p>
+    </footer>
+</body>
+</html>

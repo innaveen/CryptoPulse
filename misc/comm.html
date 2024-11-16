@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enhanced Community Section</title>
+  <style>
+    /* General Styles */
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #121212;
+      color: #ffffff;
+      box-sizing: border-box;
+    }
+
+    .section {
+      padding: 20px;
+      margin: 20px;
+      background-color: #1f1f1f;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #007bff;
+    }
+
+    h3 {
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+      color: #ffffff;
+    }
+
+    /* Categories Section (Grid Layout) */
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .category {
+      background-color: #2a2a2a;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .category::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: #007bff;
+      border-radius: 5px;
+    }
+
+    .category:hover {
+      transform: scale(1.05);
+      background-color: #333333;
+    }
+
+    .category h4 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+
+    .category p {
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+      color: #ccc;
+    }
+
+    .category button {
+      background-color: #007bff;
+      color: #ffffff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+      margin-top: 10px;
+    }
+
+    .category button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Ask a Question Section */
+    .ask-question {
+      margin-top: 30px;
+      background-color: #2a2a2a;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    .ask-question textarea {
+      width: 100%;
+      height: 100px;
+      border: 1px solid #333;
+      background-color: #222;
+      color: #fff;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      padding: 10px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .ask-question textarea:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    .ask-question button {
+      background-color: #007bff;
+      color: #ffffff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%;
+    }
+
+    .ask-question button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Shared Experiences Section */
+    .shared-experience {
+      margin-top: 30px;
+      background-color: #2a2a2a;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    .shared-experience .feedback {
+      background-color: #1f1f1f;
+      margin-bottom: 15px;
+      padding: 15px;
+      border-radius: 8px;
+      transition: transform 0.3s ease;
+    }
+
+    .shared-experience .feedback:hover {
+      transform: translateX(5px);
+    }
+
+    .shared-experience .feedback h4 {
+      margin: 0;
+      font-size: 1rem;
+      margin-bottom: 5px;
+      color: #ffffff;
+    }
+
+    .shared-experience .feedback p {
+      font-size: 0.9rem;
+      margin: 0;
+      margin-bottom: 10px;
+      color: #ccc;
+    }
+
+    .shared-experience .feedback .actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .shared-experience .feedback button {
+      background-color: #007bff;
+      color: #ffffff;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .shared-experience .feedback button:hover {
+      background-color: #0056b3;
+    }
+
+    .shared-experience .feedback .likes {
+      font-size: 0.8rem;
+      color: #999;
+    }
+
+    /* Charity Section (Grid Layout) */
+    .charity-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .charity-item {
+      background-color: #2a2a2a;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .charity-item:hover {
+      transform: scale(1.05);
+      background-color: #333333;
+    }
+
+    .charity-item h4 {
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
+
+    .charity-item p {
+      color: #ccc;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+    }
+
+    .charity-item button {
+      background-color: #007bff;
+      color: #ffffff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+      margin-top: 10px;
+    }
+
+    .charity-item button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Additional Grid for New Sections */
+    .additional-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .additional-item {
+      background-color: #2a2a2a;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .additional-item:hover {
+      transform: scale(1.05);
+      background-color: #333333;
+    }
+
+    .additional-item h4 {
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
+
+    .additional-item p {
+      color: #ccc;
+    }
+
+    .additional-item button {
+      background-color: #007bff;
+      color: #ffffff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+      margin-top: 10px;
+    }
+
+    .additional-item button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <section id="community" class="section">
+    <h2>Community Forum</h2>
+
+    <!-- Categories Section (Grid Layout) -->
+    <div class="categories">
+      <div class="category">
+        <h4>Market Trend Discussion</h4>
+        <p>Discuss the latest market trends and predictions for the future.</p>
+        <button>Join Discussion</button>
+      </div>
+
+      <div class="category">
+        <h4>Investment Strategies</h4>
+        <p>Learn and share strategies for crypto investment success.</p>
+        <button>Explore Strategies</button>
+      </div>
+
+      <div class="category">
+        <h4>Know More About Cryptocurrencies</h4>
+        <p>Understand the different cryptocurrencies and their potential for the future.</p>
+        <button>Learn More</button>
+      </div>
+    </div>
+
+    <!-- Charity Section (Grid Layout) -->
+    <div class="charity-grid">
+      <div class="charity-item">
+        <h4>Support Crypto Charity</h4>
+        <p>Support various charity projects that accept cryptocurrency donations.</p>
+        <button>Donate Now</button>
+      </div>
+
+      <div class="charity-item">
+        <h4>Crypto for Good</h4>
+        <p>Find charity organizations that use blockchain for transparency and donations.</p>
+        <button>Support Project</button>
+      </div>
+
+      <div class="charity-item">
+        <h4>Donate with Bitcoin</h4>
+        <p>Donate Bitcoin directly to those in need or for charity causes.</p>
+        <button>Make Donation</button>
+      </div>
+    </div>
+
+    <!-- Ask a Question Section -->
+    <div class="ask-question">
+      <h3>Ask a Question</h3>
+      <textarea placeholder="Ask a question to the community..."></textarea>
+      <button>Submit Question</button>
+    </div>
+
+    <!-- Shared Experiences Section -->
+    <div class="shared-experience">
+      <h3>Share Your Experience</h3>
+      <div class="feedback">
+        <h4>Naveen</h4>
+        <p>"This platform helped me find the best cryptocurrencies for long-term investment!"</p>
+        <div class="actions">
+          <button>Like</button>
+          <span class="likes">10 Likes</span>
+        </div>
+      </div>
+
+      <div class="feedback">
+        <h4>Neelesh</h4>
+        <p>"I used Dollar-Cost Averaging and saw great returns. Highly recommend it!"</p>
+        <div class="actions">
+          <button>Like</button>
+          <span class="likes">15 Likes</span>
+        </div>
+      </div>
+    </div>
+    </div>
+
+  </section>
+</body>
+</html>
+

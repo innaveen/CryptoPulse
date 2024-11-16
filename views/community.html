@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Community Forum</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            box-sizing: border-box;
+        }
+
+        .section {
+            padding: 20px;
+            margin: 20px;
+            background-color: #1f1f1f;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+
+        h3 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            color: #ffffff;
+        }
+
+        /* Categories Section (Grid Layout) */
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .category {
+            background-color: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .category::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: #007bff;
+            border-radius: 5px;
+        }
+
+        .category:hover {
+            transform: scale(1.05);
+            background-color: #333333;
+        }
+
+        .category h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        .category p {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            color: #ccc;
+        }
+
+        .category button {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .category button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Ask a Question Section */
+        .ask-question {
+            margin-top: 30px;
+            background-color: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .ask-question textarea {
+            width: 100%;
+            height: 100px;
+            border: 1px solid #333;
+            background-color: #222;
+            color: #fff;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .ask-question textarea:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .ask-question button {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        .ask-question button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Shared Experiences Section */
+        .shared-experience {
+            margin-top: 30px;
+            background-color: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .shared-experience .feedback {
+            background-color: #1f1f1f;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .shared-experience .feedback:hover {
+            transform: translateX(5px);
+        }
+
+        .shared-experience .feedback h4 {
+            margin: 0;
+            font-size: 1rem;
+            margin-bottom: 5px;
+            color: #ffffff;
+        }
+
+        .shared-experience .feedback p {
+            font-size: 0.9rem;
+            margin: 0;
+            margin-bottom: 10px;
+            color: #ccc;
+        }
+
+        .shared-experience .feedback .actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .shared-experience .feedback button {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .shared-experience .feedback button:hover {
+            background-color: #0056b3;
+        }
+
+        .shared-experience .feedback .likes {
+            font-size: 0.8rem;
+            color: #999;
+        }
+    </style>
+</head>
+<body class="dark-mode">
+    <header>
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="pricecomparison.html">Price Comparison</a></li>
+                <li><a href="marketcap.html">Market Cap</a></li>
+                <li><a href="register.html">Register</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="community.html">Community</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Community Forum</h1>
+        <section id="community" class="section">
+            <!-- Categories Section (8 Grids) -->
+            <div class="categories">
+                <div class="category">
+                    <h4>Market Trend Discussion</h4>
+                    <p>Discuss the latest market trends and predictions for the future.</p>
+                    <!-- <button>Join Discussion</button> -->
+                    <a href="https://www.gartner.com/en/marketing/topics/top-trends-and-predictions-for-the-future-of-marketing" target="_blank">
+                      <button>Join Discussion</button>
+                  </a>
+              
+                </div>
+                <div class="category">
+                    <h4>Investment Strategies</h4>
+                    <p>Learn and share strategies for crypto investment success.</p>
+                    <!-- <button>Explore Strategies</button> -->
+                    <a href="https://economictimes.indiatimes.com/markets/cryptocurrency/crypto-investing-5-highly-effective-strategies-for-your-portfolio/articleshow/105875846.cms?from=mdr" target="_blank">
+                      <button>Explore Strategies</button>
+                  </a>
+              
+                </div>
+                <div class="category">
+                    <h4>Know More About Crypto</h4>
+                    <p>Understand the different cryptocurrencies and their potential for the future.</p>
+                    <!-- <button>Learn More</button> -->
+                    <a href="https://www.investopedia.com/terms/c/cryptocurrency.asp" target="_blank">
+                      <button>Learn More</button>
+                  </a>
+              
+                </div>
+                <div class="category">
+                    <h4>Crypto Analytics</h4>
+                    <p>Get insights and analytics for informed crypto trading decisions.</p>
+                    <!-- <button>View Analytics</button> -->
+                    <a href="https://subquery.medium.com/finding-the-best-crypto-insights-from-basics-to-advanced-analytics-633358b9666e" target="_blank">
+                      <button>View Analytics</button>
+                  </a>
+              
+                </div>
+                <div class="category">
+                    <h4>Support Crypto Charity</h4>
+                    <p>Support various charity projects that accept cryptocurrency donations.</p>
+                    <button>Donate Now</button>
+                </div>
+                <div class="category">
+                    <h4>Crypto for Good</h4>
+                    <p>Support Green Cryptocurrencies.</p>
+                    <button>Support Project</button>
+                </div>
+                <div class="category">
+                    <h4>Technical Analysis</h4>
+                    <p>Discuss technical aspects and tools for analyzing crypto trends.</p>
+                    <!-- <button>Learn Analysis</button> -->
+                    <a href="https://onetrading.com/blogs/crypto-technical-analysis-techniques-indicators-and-applications"target="_blank">
+                      <button>Read News</button>
+                  </a>
+                </div>
+                <div class="category">
+                    <h4>Crypto News Updates</h4>
+                    <p>Stay updated with the latest news in the cryptocurrency space.</p>
+                    <!-- <button >Read News</button> -->
+                    <a href="https://finance.yahoo.com/topic/crypto/" target="_blank">
+                      <button>Read News</button>
+                  </a>
+              
+                </div>
+            </div>
+
+            <!-- Ask a Question Section -->
+            <div class="ask-question">
+                <h3>Ask a Question</h3>
+                <textarea placeholder="Ask a question to the community..."></textarea>
+                <button>Submit Question</button>
+            </div>
+
+            <!-- Shared Experiences Section -->
+            <div class="shared-experience">
+                <h3>Share Your Experience</h3>
+                <div class="feedback">
+                    <h4>Naveen</h4>
+                    <p>"This platform helped me find the best cryptocurrencies for long-term investment!"</p>
+                    <div class="actions">
+                        <button>Like</button>
+                        <span class="likes">20 likes</span>
+                    </div>
+                </div>
+                <div class="feedback">
+                  <h4>Neelesh</h4>
+                  <p>"The real-time updates on market trends have been a game-changer for my investment strategy."</p>
+                  <div class="actions">
+                      <button>Like</button>
+                      <span class="likes">18 likes</span>
+                  </div>
+              </div>
+              <div class="feedback">
+                  <h4>Nainsi</h4>
+                  <p>"I love how easy it is to connect with other crypto enthusiasts and exchange ideas."</p>
+                  <div class="actions">
+                      <button>Like</button>
+                      <span class="likes">25 likes</span>
+                  </div>
+              </div>
+              <div class="feedback">
+                  <h4>Parul</h4>
+                  <p>"The educational resources on this platform are fantastic! They really helped me understand the basics."</p>
+                  <div class="actions">
+                      <button>Like</button>
+                      <span class="likes">22 likes</span>
+                  </div>
+              </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+      <p>&copy; 2024 CryptoPulse. All rights reserved.</p>
+      <p>Follow us: <a href="#">Twitter</a> | <a href="#">LinkedIn</a> | <a href="#">Facebook</a></p>
+  </footer>
+</body>
+</html>

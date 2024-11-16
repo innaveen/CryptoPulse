@@ -1,0 +1,140 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Market Cap - Cryptocurrency Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-mode">
+    <header>
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="pricecomparison.html">Price Comparison</a></li>
+                <li><a href="marketcap.html">Market Cap</a></li>
+                <li><a href="register.html">Register</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="community.html">Community</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Top Cryptocurrencies by Market Cap</h1>
+        <canvas id="market-cap-chart"></canvas>
+    </main>
+    <footer>
+        <p>&copy; 2024 CryptoPulse. All rights reserved.</p>
+        <p>Follow us: <a href="#">Twitter</a> | <a href="#">LinkedIn</a> | <a href="#">Facebook</a></p>
+    </footer>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Market Cap - Cryptocurrency Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Adding Chart.js -->
+    <style>
+          .crypto-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .crypto-table th, .crypto-table td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        .crypto-table th {
+            background-color: #333;
+            color: white;
+        }
+        .loading {
+            text-align: center;
+            font-size: 20px;
+            margin-top: 50px;
+        }</style>
+</head>
+<body class="dark-mode">
+    <header>
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="pricecomparison.html">Price Comparison</a></li>
+                <li><a href="marketcap.html">Market Cap</a></li>
+                <li><a href="register.html">Register</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="community.html">Community</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Top Cryptocurrencies by Market Cap</h1>
+        <canvas id="market-cap-chart"></canvas> <!-- Chart.js Canvas -->
+    </main>
+
+    <footer>
+        <p>&copy; 2024 CryptoPulse. All rights reserved.</p>
+        <p>Follow us: <a href="#">Twitter</a> | <a href="#">LinkedIn</a> | <a href="#">Facebook</a></p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            fetch('/api/marketcap')  // Fetch data from the server API
+                .then(response => response.json())
+                .then(data => {
+                    // Process and prepare data for the chart
+                    const labels = data.map(crypto => crypto.name);
+                    const marketCaps = data.map(crypto => crypto.market_cap);
+                    const prices = data.map(crypto => crypto.price);
+
+                    const ctx = document.getElementById('market-cap-chart').getContext('2d');
+                    const marketCapChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Market Cap (USD)',
+                                data: marketCaps,
+                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Price (USD)',
+                                data: prices,
+                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                borderColor: 'rgba(255, 99, 132, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        callback: function(value) {
+                                            return '$' + value.toLocaleString(); // Format y-axis labels as currency
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(err => {
+                    console.error('Error fetching market cap data:', err);
+                    alert('Error fetching data. Please try again later.');
+                });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cryptocurrency Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
+    
+    <style>
+        #pic4{
+            height:800px;
+             display: block;
+             margin-top: 60px;
+             margin-left: auto; 
+             margin-right: auto;
+             width: 80%; /* Adjust the width as needed */
+             justify-items: center; 
+             align-items: center;
+              
+        }
+        #hero-heading{
+            
+            font-size:53px;
+           font-family:'Times New Roman', Times, serif;
+
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+</style>
+</head>
+<body class="dark-mode">
+    <!-- Header and Navbar -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="pricecomparison.html">Price Comparison</a></li>
+                <li><a href="marketcap.html">Market Cap</a></li>
+                <li><a href="register.html">Register</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="community.html">Community</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1  id="hero-heading">Welcome to CryptoPulse</h1>
+            <h2>The Cryptocurrency tracker</h2>
+            <p id="hero-phrase">Your one-stop solution for live cryptocurrency price comparison across exchanges and profitable arbitrage opportunities.</p>
+            <div class="search-bar">
+                <input type="text" placeholder="Search for a cryptocurrency...">
+                <button>Search</button>
+            </div>
+        </div>
+    </section>
+    
+
+    <!-- Main Content -->
+    <!-- <main> -->
+        <!-- <h2>Live Cryptocurrency Prices</h2>
+        <div id="crypto-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Cryptocurrency</th>
+                        <th>Lowest Price</th>
+                        <th>Lowest Price platform</th>
+                        <th>Highest Price</th>
+                        <th>Highest Price platform</th> -->
+                        <!-- More columns for additional exchanges -->
+                    <!-- </tr>
+                    
+                </thead>
+                <tbody id="crypto-data"></tbody>
+            </table>
+        </div> -->
+
+        <!-- Comparison Charts -->
+        <!-- <canvas id="line-chart"></canvas>
+        <canvas id="bar-chart"></canvas>
+        <canvas id="pie-chart"></canvas>
+    </main> -->
+
+    <script src="/script.js"></script>
+
+    <h1>Real-Time Cryptocurrency Price Comparison</h1>
+
+    <table id="cryptoTable">
+        <thead>
+            <tr>
+                <th>Cryptocurrency</th>
+                <th>Platform (Highest Price)</th>
+                <th>Highest Price (USD)</th>
+                <th>Platform (Lowest Price)</th>
+                <th>Lowest Price (USD)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data will be dynamically inserted here -->
+        </tbody>
+    </table>
+    <section class="about-section">
+        <div class="about-content">
+            <img src="picture1.png" id="pic4">
+        </div>
+    </section>
+    <script>
+        const apiUrl = "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,binancecoin,ripple,cardano,solana,polkadot,dogecoin,litecoin,chainlink&vs_currencies=usd";
+        
+        async function fetchCryptoPrices() {
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                
+                // List of cryptocurrencies to display
+                const cryptocurrencies = [
+                    { name: 'Bitcoin', symbol: 'bitcoin' },
+                    { name: 'Ethereum', symbol: 'ethereum' },
+                    { name: 'Binance Coin', symbol: 'binancecoin' },
+                    { name: 'Ripple', symbol: 'ripple' },
+                    { name: 'Cardano', symbol: 'cardano' },
+                    { name: 'Solana', symbol: 'solana' },
+                    { name: 'Polkadot', symbol: 'polkadot' },
+                    { name: 'Dogecoin', symbol: 'dogecoin' },
+                    { name: 'Litecoin', symbol: 'litecoin' },
+                    { name: 'Chainlink', symbol: 'chainlink' }
+                ];
+
+                let tableContent = '';
+
+                cryptocurrencies.forEach(crypto => {
+                    const price = data[crypto.symbol].usd;
+                    // Simulating different prices across platforms
+                    const highestPrice = price + Math.random() * 1000;  // Random price variation
+                    const lowestPrice = price - Math.random() * 1000;
+
+                    tableContent += `
+                        <tr>
+                            <td>${crypto.name}</td>
+                            <td>Binance</td>
+                            <td>$${highestPrice.toFixed(2)}</td>
+                            <td>Coinbase</td>
+                            <td>$${lowestPrice.toFixed(2)}</td>
+                        </tr>
+                    `;
+                });
+
+                document.querySelector("#cryptoTable tbody").innerHTML = tableContent;
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+
+        // Call the function when the page loads
+        fetchCryptoPrices();
+
+        // Refresh the prices every 30 seconds
+        setInterval(fetchCryptoPrices, 30000);
+    </script>
+     <footer>
+        <p>&copy; 2024 CryptoPulse. All rights reserved.</p>
+        <p>Follow us: <a href="#">Twitter</a> | <a href="#">LinkedIn</a> | <a href="#">Facebook</a></p>
+    </footer>
+</body>
+</html>

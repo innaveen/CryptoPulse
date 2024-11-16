@@ -1,0 +1,46 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cryptocurrency Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Cryptocurrency Tracker</h1>
+    <p>Track the latest prices and trends of cryptocurrencies in real time.</p>
+  </header>
+
+  <main>
+    <h2>Current Cryptocurrencies</h2>
+    <table id="crypto-list">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Symbol</th>
+          <th>Price (USD)</th>
+          <th>Change (24h)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Data will be inserted here dynamically -->
+      </tbody>
+    </table>
+
+    <h2>Price Alerts</h2>
+    <form id="alert-form">
+      <label for="crypto-name">Cryptocurrency:</label>
+      <input type="text" id="crypto-name" placeholder="Bitcoin, Ethereum..." required>
+      <label for="price-threshold">Alert at Price (USD):</label>
+      <input type="number" id="price-threshold" required>
+      <button type="submit">Set Alert</button>
+    </form>
+  </main>
+  <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+  <script src="/crptotracker/js/public/app.js"></script> <!-- Include client-side JavaScript -->
+  <script src="/crptotracker/js/chart.js"></script> <!-- Replace with your actual file if needed -->
+  <script src="/crptotracker/js/script3.js"></script> <!-- If you have other JS files -->
+</body>
+</html>

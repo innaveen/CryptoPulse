@@ -1,0 +1,242 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+/* Hero Section Styles */
+.hero-section {
+    background: url("home.avif") no-repeat center center/cover;
+    padding: 80px 20px;
+    color: #ffffff;
+    text-align: center;
+    position: relative;
+}
+
+.hero-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color:linear-gradient(109.6deg, rgb(36, 45, 57) 11.2%, rgb(16, 37, 60) 51.2%, rgb(0, 0, 0) 98.6%);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+}
+
+.hero-content h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+/* Add other CSS styles here... */
+
+
+body.dark-mode {
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+h1, h2 {
+    margin-bottom: 20px;
+    color: #f0f0f0;
+    text-align: center;
+}
+
+/* Navbar Styles */
+header {
+    background-color: #1f1f1f;
+    padding: 20px 0;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+header nav ul li {
+    display: inline;
+}
+
+header nav ul li a {
+    color: #e0e0e0;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 15px;
+    transition: background 0.3s, color 0.3s;
+}
+
+header nav ul li a:hover {
+    background-color: #333;
+    color: #ffcc00;
+}
+
+/* General Layout Styles */
+main {
+    padding: 20px;
+    text-align: center;
+}
+
+.search-bar {
+    margin: 20px auto;
+    max-width: 500px;
+    display: flex;
+    gap: 10px;
+}
+
+.search-bar input[type="text"] {
+    width: 70%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #333;
+    color: #e0e0e0;
+}
+
+.search-bar button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #ffcc00;
+    color: #1f1f1f;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.search-bar button:hover {
+    background-color: #e6b800;
+}
+
+/* Table Styles */
+table {
+    width: 90%;
+    margin: 30px auto;
+    border-collapse: collapse;
+    border: 1px solid #444;
+    color: #e0e0e0;
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #444;
+}
+
+th {
+    background-color: #333;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #1f1f1f;
+}
+
+/* Chart Container Styles */
+canvas {
+    max-width: 90%;
+    margin: 20px auto;
+}
+
+/* Buttons for Comparison Page */
+.compare-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.compare-controls button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #ffcc00;
+    color: #1f1f1f;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.compare-controls button:hover {
+    background-color: #e6b800;
+}
+
+/* Sign-Up and Login Form Styles */
+form {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #222;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+form input[type="text"],
+form input[type="password"],
+form input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: #333;
+    color: #e0e0e0;
+}
+
+form button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #ffcc00;
+    color: #1f1f1f;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+form button[type="submit"]:hover {
+    background-color: #e6b800;
+}
+
+/* Footer (if needed) */
+
+footer {
+    text-align: center;
+    padding: 1rem 0;
+    background-color: #1f1f1f;
+    color: #f1f1f1;
+    margin-top: 2rem;
+}
+
+footer p {
+    margin-bottom: 0.5rem;
+}
+
+footer a {
+    color: #4caf50;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #1e8e3e;
+    text-decoration: underline;
+}
